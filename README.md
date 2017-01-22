@@ -9,5 +9,6 @@ Usage:
         input folder
   -output string
         output folder
-  -gui use with gui (will run on localhost:8080)
+  -gui
+        use with gui (will run on localhost:8080)
 ```
