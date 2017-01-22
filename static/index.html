@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/pure-min.css">
+        <link rel="stylesheet" href="css/stylesheet.css">
+        <link rel="stylesheet" href="css/modal.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="pure-g">
+                <div class="pure-u-1-2">
+                    <center>
+                        <h3>Select input folder here</h3>
+                    </center>
+                    <filebrowser id="selectSource"><filebrowser/>
+                </div>
+                <div class="pure-u-1-2">
+                    <center>
+                        <h3>Select destination file here</h3>
+                    </center>
+                    <filebrowser id="selectDest"><filebrowser/>
+                </div>
+            </div>
+            <hr>
+            <div class="pure-g">
+                <div class="pure-u-1-2">
+                    <b>Width: </b><input type="number" placeholder="width" id="width" value="1600">
+                    <b>Height: </b><input type="number" placeholder="height" id="height" value="1600">
+                </div>
+                <div class="pure-u-1-2">
+                    <button class="pure-button pull-right" onclick="doConvert()">Convert</button>
+                </div>
+            </div>
+        </div>
+        <doConvertModal></doConvertModal>
+        <script src="tag/filebrowser.tag" type="riot/tag"></script>
+        <script src="tag/doConvertModal.tag" type="riot/tag"></script>
+        <script src="js/axios.min.js"></script>
+        <script src="js/riot%2Bcompiler.min.js"></script>
+        <script>
+window.sourceDir = null;
+window.destFile = null;
+
+var sourceChanged = function(newSource) {
+    window.sourceDir = newSource;
+    console.log(sourceDir);
+}
+
+var destChanged = function(newDest) {
+    window.destFile = newDest;
+    console.log(destFile);
+}
+
+axios.get('/api/selectSource/currentDir').then(function(response) {
+    var opts = response.data;
+    opts.apiEndpoint = '/api/selectSource/';
+    opts.selectDir = true;
+    opts.changed = sourceChanged;
+    riot.mount('#selectSource', opts);
+});
+
+axios.get('/api/selectDest/currentDir').then(function(response) {
+    var opts = response.data;
+    opts.apiEndpoint = '/api/selectDest/';
+    opts.selectDir = false;
+    opts.changed = destChanged;
+    opts.defaultFilename = 'images.tar.gz'
+    riot.mount('#selectDest', opts);
+})
+.catch(function(error) {
+    console.log(error);
+});
+
+function doConvert() {
+    var modalControl = riot.observable();
+    var width = parseInt(document.querySelector('#width').value);
+    var height = parseInt(document.querySelector('#height').value);
+    var opts = {sourceDir: window.sourceDir, destFile: window.destFile, width: width, height: height, modalControl: modalControl};
+    riot.mount('doConvertModal', opts);
+    modalControl.trigger('show');
+}
+        </script>
+    </body>
+</html>

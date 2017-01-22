@@ -1,0 +1,77 @@
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+.full-width-table {
+    width: 100%;
+    border: none;
+}
+.full-width-table thead {
+    background-color: transparent;
+}
+
+table td.shrink {
+    white-space:nowrap;
+}
+
+table td.expand {
+    width: 99%
+}
+
+table tr:hover td {
+    background-color: grey !important;
+}
+
+table tr.selected td {
+    background-color: #80ccff !important;
+}
+
+table tr.dir span {
+    cursor:pointer;
+}
+
+.filebrowser {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+input.statusbar {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.filebrowser .files-table {
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.filebrowser .filename {
+    margin-top: 7px;
+    padding-top: 7px;
+}
+
+.pull-right {
+    float: right;
+}
+
+.controls {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}

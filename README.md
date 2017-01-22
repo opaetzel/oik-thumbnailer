@@ -1,5 +1,5 @@
 # oik-thumbnailer
-Resizes images and puts them in and tar.gz archive
+Resizes images and puts them in a tar.gz archive
 
 Usage: 
 ```bash
@@ -9,4 +9,5 @@ Usage:
         input folder
   -output string
         output folder
+  -gui use with gui (will run on localhost:8080)
 ```
