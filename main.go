@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/pkg/browser"
 )
 
 func main() {
@@ -17,7 +19,8 @@ func main() {
 	flag.Parse()
 
 	if *useGui {
-		fmt.Println("running with gui. Open browser and direct to \"http://localhost:8080\"")
+		fmt.Println("running with gui. Your browser should open")
+		go openBrowser()
 		runWithGui()
 	} else {
 		if *input == "" || *output == "" {
@@ -27,6 +30,13 @@ func main() {
 
 		createPackage(input, output, dimensions)
 
+	}
+}
+
+func openBrowser() {
+	err := browser.OpenURL("http://localhost:8080")
+	if err != nil {
+		fmt.Println("It seems like your browser did not opent. Start it and direct to \"http://localhost:8080\"")
 	}
 }
 
